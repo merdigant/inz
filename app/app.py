@@ -5,9 +5,43 @@ from sqlalchemy.orm import Session
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from datetime import datetime
 from pydantic import BaseModel, constr
+from fastapi import Request
+
+
+from app.risk.context import RiskContext
+from app.risk.engine import RiskEngine
+from app.risk.rules import (
+    FailedAttemptsRule,
+    LastAttemptFailedRule,
+    NewIPRule,
+    NewUserAgentRule,
+    UnusualHourRule,
+    RapidAttemptsRule,
+    UnusualLoginPatternRule,
+    NewCountryRule,
+    RiskyASNRule,
+    ImpossibleTravelRule,
+    PositiveLoginHistoryRule,
+    ChronicRiskRule,
+    ConfidenceDecayRule,
+)
 
 from app.database import Base, engine, SessionLocal
 from app.security import hash_password, verify_password
+from app.models import User, LoginAttempt, RiskAssessment
+
+from app.geo.lookup import GeoLookup
+from app.risk.normalization import normalize
+
+from app.risk.policies import decide_mfa
+
+MAX_RAW_SCORE = 335
+
+
+geo = GeoLookup(
+    country_db="app/geo/GeoLite2-Country.mmdb",
+    asn_db="app/geo/GeoLite2-ASN.mmdb"
+)
 
 
 app = FastAPI(
@@ -15,29 +49,28 @@ app = FastAPI(
     version="0.1.0"
 )
 
+def build_risk_engine() -> RiskEngine:
+    return RiskEngine(
+        rules=[
+            FailedAttemptsRule(),
+            LastAttemptFailedRule(),
+            NewIPRule(),
+            NewUserAgentRule(),
+            UnusualHourRule(),
+            RapidAttemptsRule(),
+            UnusualLoginPatternRule(),
+            NewCountryRule(),
+            RiskyASNRule(),
+            ImpossibleTravelRule(),
+            PositiveLoginHistoryRule(),
+            ChronicRiskRule(),
+            ConfidenceDecayRule(),
+        ]
+    )
 
 @app.on_event("startup")
 def startup():
     Base.metadata.create_all(bind=engine)
-
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True, nullable=False)
-    password_hash = Column(String, nullable=False)
-
-    mfa_enabled = Column(Boolean, default=False)
-    mfa_secret = Column(String, nullable=True)
-
-
-class LoginAttempt(Base):
-    __tablename__ = "login_attempts"
-
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow)
-    success = Column(Boolean)
 
 class UserCreate(BaseModel):
     username: str
@@ -49,21 +82,55 @@ class LoginRequest(BaseModel):
     password: str
 
 
-class RiskAssessment(Base):
-    __tablename__ = "risk_assessments"
-
-    id = Column(Integer, primary_key=True)
-    username = Column(String, nullable=False)
-    risk_score = Column(Integer, nullable=False)
-    decision = Column(String, nullable=False)
-    timestamp = Column(DateTime, default=datetime.utcnow)
-
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+def build_risk_context(
+    payload: LoginRequest,
+    request: Request,
+    db: Session,
+    success: bool | None = None
+) -> RiskContext:
+
+    client_ip = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
+    country = geo.get_country(client_ip) if client_ip else None
+    asn = geo.get_asn(client_ip) if client_ip else None
+    asn_org = geo.get_asn_org(client_ip) if client_ip else None
+
+    attempts = (
+        db.query(LoginAttempt)
+        .filter(LoginAttempt.username == payload.username)
+        .order_by(LoginAttempt.timestamp.desc())
+        .limit(5)
+        .all()
+    )
+
+    risk_history = (
+        db.query(RiskAssessment)
+        .filter(RiskAssessment.username == payload.username)
+        .order_by(RiskAssessment.timestamp.desc())
+        .limit(20)
+        .all()
+    )
+
+    return RiskContext(
+        username=payload.username,
+        login_history=attempts,
+        login_time=datetime.utcnow(),
+        ip_address=client_ip,
+        user_agent=user_agent,
+        country=country,
+        asn=asn,
+        asn_org=asn_org,
+        risk_history=risk_history
+    )
+
 
 @app.post("/users", status_code=201)
 def register_user(payload: UserCreate, db: Session = Depends(get_db)):
@@ -82,11 +149,15 @@ def register_user(payload: UserCreate, db: Session = Depends(get_db)):
 
     return {"message": "User created"}
 
-def calculate_risk(db: Session, username: str) -> int:
-    """
-    Minimalny, deterministyczny risk engine.
-    Bazuje WYŁĄCZNIE na historii logowań.
-    """
+def calculate_risk(
+    db: Session,
+    username: str,
+    client_ip: str | None,
+    user_agent: str | None,
+    country: str | None,
+    asn: str | None
+) -> int:
+
     attempts = (
         db.query(LoginAttempt)
         .filter(LoginAttempt.username == username)
@@ -95,33 +166,69 @@ def calculate_risk(db: Session, username: str) -> int:
         .all()
     )
 
-    score = 0
+    risk_history = (
+        db.query(RiskAssessment)
+        .filter(RiskAssessment.username == username)
+        .order_by(RiskAssessment.timestamp.desc())
+        .limit(20)
+        .all()
+    )
 
-    # Reguła 1: ostatnia próba nieudana
-    if attempts and not attempts[0].success:
-        score += 30
+    context = RiskContext(
+        username=username,
+        login_history=attempts,
+        login_time=datetime.utcnow(),
+        ip_address=client_ip,
+        user_agent=user_agent,
+        country=country,
+        asn=asn,
+        risk_history=risk_history
+    )
 
-    # Reguła 2: >= 3 nieudane próby w ostatnich 5
-    failed = [a for a in attempts if not a.success]
-    if len(failed) >= 3:
-        score += 40
+    engine = build_risk_engine()
 
-    return score
+    raw_score = engine.calculate(context)
+    normalized_score = normalize(raw_score, MAX_RAW_SCORE)
+
+    return int(normalized_score)
+
+
+
+def risk_level(score: int) -> str:
+    if score >= 60:
+        return "HIGH"
+    if score >= 30:
+        return "MEDIUM"
+    return "LOW"
+
 
 @app.post("/auth/login")
-def login(payload: LoginRequest, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == payload.username).first()
+def login(payload: LoginRequest,request: Request,db: Session = Depends(get_db)):
+
+    user = (db.query(User).filter(User.username == payload.username).first())   
+
+    client_ip = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
+    country = geo.get_country(client_ip) if client_ip else None
+    asn = geo.get_asn(client_ip) if client_ip else None
+    asn_org = geo.get_asn_org(client_ip) if client_ip else None
 
     success = False
     if user and verify_password(payload.password, user.password_hash):
         success = True
 
-    # ❌ BŁĘDNE HASŁO — ZAPISZ I WYJDŹ
     if not success:
         attempt = LoginAttempt(
             username=payload.username,
-            success=False
+            success=False,
+            ip_address=client_ip,
+            user_agent=user_agent,
+            country=country,
+            asn=asn,
+            asn_org=asn_org
         )
+
         db.add(attempt)
         db.commit()
 
@@ -130,26 +237,47 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
             detail="Invalid credentials"
         )
 
-    # ✅ TU JEST KLUCZ — LICZYMY RYZYKO ZANIM ZAPISZEMY SUKCES
-    risk_score = calculate_risk(db, payload.username)
+    risk_score = calculate_risk(
+    db,
+    payload.username,
+    client_ip,
+    user_agent,
+    country,
+    asn,
+    asn_org
+    )
 
-    # TERAZ dopiero zapisujemy SUCCESS
     attempt = LoginAttempt(
         username=payload.username,
-        success=True
+        success=True,
+        ip_address=client_ip,
+        user_agent=user_agent,
+        country=country,
+        asn=asn,
+        asn_org=asn_org
     )
     db.add(attempt)
     db.commit()
 
-    decision = "MFA_REQUIRED" if risk_score >= 50 else "ALLOW"
+
+    policy = user.policy if user.policy else "STANDARD"
+    decision = decide_mfa(risk_score, policy)
+
 
     assessment = RiskAssessment(
-        username=payload.username,
-        risk_score=risk_score,
-        decision=decision
+    username=payload.username,
+    risk_score=risk_score,
+    decision=decision
     )
+
     db.add(assessment)
     db.commit()
+
+    if decision == "BLOCK":
+        return {
+            "status": "BLOCKED",
+            "risk_score": risk_score
+        }
 
     if decision == "MFA_REQUIRED":
         return {
@@ -166,4 +294,60 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
 @app.get("/debug/assessments")
 def list_risk_assessments(db: Session = Depends(get_db)):
     return db.query(RiskAssessment).order_by(RiskAssessment.timestamp.desc()).all()
+
+@app.post("/debug/auth/trace")
+def login_with_trace(
+    payload: LoginRequest,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    client_ip = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
+    country = geo.get_country(client_ip) if client_ip else None
+    asn = geo.get_asn(client_ip) if client_ip else None
+    asn_org = geo.get_asn_org(client_ip) if client_ip else None
+
+    attempts = (
+        db.query(LoginAttempt)
+        .filter(LoginAttempt.username == payload.username)
+        .order_by(LoginAttempt.timestamp.desc())
+        .limit(5)
+        .all()
+    )
+
+    risk_history = (
+        db.query(RiskAssessment)
+        .filter(RiskAssessment.username == payload.username)
+        .order_by(RiskAssessment.timestamp.desc())
+        .limit(20)
+        .all()
+    )
+
+    context = RiskContext(
+        username=payload.username,
+        login_history=attempts,
+        login_time=datetime.utcnow(),
+        ip_address=client_ip,
+        user_agent=user_agent,
+        country=country,
+        asn=asn,
+        asn_org=asn_org,
+        risk_history=risk_history
+    )
+
+    engine = build_risk_engine()
+
+    policy = "STANDARD"
+    raw_score, trace = engine.calculate_with_trace(context)
+    score = normalize(raw_score, MAX_RAW_SCORE)
+    decision = decide_mfa(score, "STANDARD")
+
+    return {
+        "raw_score": raw_score,
+        "policy":policy,
+        "normalized_score": score,
+        "decision": decision,
+        "trace": trace
+    }
 
