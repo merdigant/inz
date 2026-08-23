@@ -89,47 +89,8 @@ def get_db():
     finally:
         db.close()
 
-def build_risk_context(
-    payload: LoginRequest,
-    request: Request,
-    db: Session,
-    success: bool | None = None
-) -> RiskContext:
 
-    client_ip = request.client.host if request.client else None
-    user_agent = request.headers.get("user-agent")
 
-    country = geo.get_country(client_ip) if client_ip else None
-    asn = geo.get_asn(client_ip) if client_ip else None
-    asn_org = geo.get_asn_org(client_ip) if client_ip else None
-
-    attempts = (
-        db.query(LoginAttempt)
-        .filter(LoginAttempt.username == payload.username)
-        .order_by(LoginAttempt.timestamp.desc())
-        .limit(5)
-        .all()
-    )
-
-    risk_history = (
-        db.query(RiskAssessment)
-        .filter(RiskAssessment.username == payload.username)
-        .order_by(RiskAssessment.timestamp.desc())
-        .limit(20)
-        .all()
-    )
-
-    return RiskContext(
-        username=payload.username,
-        login_history=attempts,
-        login_time=datetime.utcnow(),
-        ip_address=client_ip,
-        user_agent=user_agent,
-        country=country,
-        asn=asn,
-        asn_org=asn_org,
-        risk_history=risk_history
-    )
 
 
 @app.post("/users", status_code=201)
@@ -155,7 +116,8 @@ def calculate_risk(
     client_ip: str | None,
     user_agent: str | None,
     country: str | None,
-    asn: str | None
+    asn: str | None,
+    asn_org: str | None
 ) -> int:
 
     attempts = (
@@ -182,13 +144,14 @@ def calculate_risk(
         user_agent=user_agent,
         country=country,
         asn=asn,
+        asn_org=asn_org,
         risk_history=risk_history
     )
 
     engine = build_risk_engine()
 
     raw_score = engine.calculate(context)
-    normalized_score = normalize(raw_score, MAX_RAW_SCORE)
+    normalized_score = normalize(raw_score)
 
     return int(normalized_score)
 
@@ -340,7 +303,7 @@ def login_with_trace(
 
     policy = "STANDARD"
     raw_score, trace = engine.calculate_with_trace(context)
-    score = normalize(raw_score, MAX_RAW_SCORE)
+    score = normalize(raw_score)
     decision = decide_mfa(score, "STANDARD")
 
     return {
@@ -351,3 +314,72 @@ def login_with_trace(
         "trace": trace
     }
 
+@app.post("/debug/auth/baseline")
+def baseline_login(
+    payload: LoginRequest,
+    db: Session = Depends(get_db)
+):
+    user = (
+        db.query(User)
+        .filter(User.username == payload.username)
+        .first()
+    )
+
+    if not user or not verify_password(
+        payload.password,
+        user.password_hash
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials"
+        )
+
+    return {
+        "status": "AUTHENTICATED"
+    }
+
+@app.post("/debug/auth/adaptive")
+def adaptive_login(
+    payload: LoginRequest,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    user = (
+        db.query(User)
+        .filter(User.username == payload.username)
+        .first()
+    )
+
+    if not user or not verify_password(
+        payload.password,
+        user.password_hash
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials"
+    )
+
+    client_ip = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
+    country = geo.get_country(client_ip) if client_ip else None
+    asn = geo.get_asn(client_ip) if client_ip else None
+    asn_org = geo.get_asn_org(client_ip) if client_ip else None
+
+    risk_score = calculate_risk(
+        db,
+        payload.username,
+        client_ip,
+        user_agent,
+        country,
+        asn,
+        asn_org
+    )
+
+    decision = decide_mfa(risk_score, user.policy or "STANDARD")
+
+    return {
+        "status": "AUTHENTICATED",
+        "risk_score": risk_score,
+        "decision": decision
+    }

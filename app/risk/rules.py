@@ -85,18 +85,17 @@ class NewCountryRule(RiskRule):
 
 class RiskyASNRule(RiskRule):
     def evaluate(self, context: RiskContext) -> int:
-        if not context.asn:
+        if not context.asn_org:
             return 0
 
         risky_keywords = ["hosting", "cloud", "vpn", "server"]
 
-        for a in context.login_history:
-            if a.asn_org:
-                name = a.asn_org.lower()
-                if any(k in name for k in risky_keywords):
-                    return 30
-        return 0
+        name = context.asn_org.lower()
 
+        if any(k in name for k in risky_keywords):
+            return 30
+
+        return 0
 
 class ImpossibleTravelRule(RiskRule):
     def evaluate(self, context: RiskContext) -> int:

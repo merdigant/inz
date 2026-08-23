@@ -38,7 +38,7 @@ def run_scenario(login_history, **kwargs):
     )
 
     raw = engine.calculate(context)
-    score = normalize(raw, 335)
+    score = normalize(raw)
 
     return score
 

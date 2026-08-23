@@ -1,0 +1,340 @@
+================================================================================
+USER: user_00000
+PROFILE TYPE: REMOTE
+
+TYPICAL CONTEXT:
+  Country:    DE
+  IP:         10.0.0.10
+  ASN:        20940
+  ASN org:    Akamai
+  User-Agent: Firefox
+  Hours:      (7, 21)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 10:52:26 | success=True | IP=192.168.1.14 | country=DE | UA=Firefox | ASN=20940
+  02. time=2026-07-30 13:37:55 | success=True | IP=192.168.1.14 | country=DE | UA=Firefox | ASN=20940
+  03. time=2026-07-31 15:53:42 | success=True | IP=10.0.0.10 | country=DE | UA=Firefox | ASN=20940
+  04. time=2026-08-01 08:06:33 | success=True | IP=192.168.1.11 | country=DE | UA=Firefox | ASN=6830
+  05. time=2026-08-02 15:14:06 | success=True | IP=10.0.0.10 | country=DE | UA=Firefox | ASN=20940
+  06. time=2026-08-03 13:02:35 | success=True | IP=192.168.1.14 | country=DE | UA=Firefox | ASN=5617
+  07. time=2026-08-04 13:46:59 | success=True | IP=192.168.1.14 | country=DE | UA=Firefox | ASN=15169
+  08. time=2026-08-05 09:53:00 | success=True | IP=192.168.1.14 | country=DE | UA=Firefox | ASN=20940
+  09. time=2026-08-06 20:01:39 | success=True | IP=192.168.1.11 | country=DE | UA=Firefox | ASN=15169
+  10. time=2026-08-07 19:15:55 | success=True | IP=10.0.0.11 | country=DE | UA=Safari | ASN=15169
+  11. time=2026-08-08 11:42:04 | success=True | IP=10.0.0.14 | country=DE | UA=Firefox | ASN=5617
+  12. time=2026-08-09 16:17:00 | success=True | IP=10.0.0.10 | country=DE | UA=Safari | ASN=6830
+  13. time=2026-08-10 17:23:58 | success=True | IP=10.0.0.15 | country=DE | UA=Safari | ASN=20940
+  14. time=2026-08-11 14:04:47 | success=True | IP=192.168.1.11 | country=DE | UA=Safari | ASN=6830
+  15. time=2026-08-12 21:44:22 | success=True | IP=10.0.0.11 | country=DE | UA=Safari | ASN=6830
+  16. time=2026-08-13 07:14:18 | success=True | IP=10.0.0.14 | country=DE | UA=Edge | ASN=6830
+  17. time=2026-08-14 16:08:57 | success=True | IP=10.0.0.10 | country=DE | UA=Safari | ASN=20940
+  18. time=2026-08-15 08:33:43 | success=True | IP=192.168.1.14 | country=DE | UA=Safari | ASN=15169
+  19. time=2026-08-16 12:10:35 | success=True | IP=192.168.1.10 | country=DE | UA=Firefox | ASN=15169
+  20. time=2026-08-17 13:53:44 | success=True | IP=192.168.1.12 | country=DE | UA=Firefox | ASN=5617
+
+================================================================================
+USER: user_00001
+PROFILE TYPE: REMOTE
+
+TYPICAL CONTEXT:
+  Country:    GB
+  IP:         10.0.0.12
+  ASN:        5617
+  ASN org:    Orange Polska
+  User-Agent: Edge
+  Hours:      (7, 21)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 17:32:16 | success=True | IP=10.0.0.12 | country=GB | UA=Edge | ASN=5617
+  02. time=2026-07-30 21:18:04 | success=True | IP=10.0.0.12 | country=GB | UA=Edge | ASN=5617
+  03. time=2026-07-31 10:19:22 | success=True | IP=10.0.0.10 | country=GB | UA=Edge | ASN=5617
+  04. time=2026-08-01 08:47:36 | success=True | IP=10.0.0.10 | country=GB | UA=Edge | ASN=5617
+  05. time=2026-08-02 10:46:49 | success=True | IP=10.0.0.10 | country=GB | UA=Edge | ASN=6830
+  06. time=2026-08-03 17:41:05 | success=True | IP=10.0.0.12 | country=GB | UA=Chrome | ASN=6830
+  07. time=2026-08-04 19:15:45 | success=True | IP=10.0.0.11 | country=GB | UA=Chrome | ASN=6830
+  08. time=2026-08-05 07:07:34 | success=True | IP=10.0.0.11 | country=GB | UA=Edge | ASN=6830
+  09. time=2026-08-06 11:23:24 | success=True | IP=192.168.1.15 | country=GB | UA=Edge | ASN=5617
+  10. time=2026-08-07 14:36:37 | success=True | IP=10.0.0.15 | country=GB | UA=Chrome | ASN=5617
+  11. time=2026-08-08 10:11:37 | success=True | IP=192.168.1.15 | country=GB | UA=Edge | ASN=5617
+  12. time=2026-08-09 08:01:34 | success=True | IP=10.0.0.10 | country=GB | UA=Edge | ASN=6830
+  13. time=2026-08-10 13:21:44 | success=True | IP=10.0.0.10 | country=GB | UA=Edge | ASN=6830
+  14. time=2026-08-11 20:11:50 | success=True | IP=192.168.1.11 | country=GB | UA=Chrome | ASN=6830
+  15. time=2026-08-12 20:14:57 | success=True | IP=192.168.1.10 | country=GB | UA=Chrome | ASN=15169
+  16. time=2026-08-13 21:09:04 | success=True | IP=192.168.1.12 | country=GB | UA=Chrome | ASN=15169
+  17. time=2026-08-14 21:21:45 | success=True | IP=10.0.0.13 | country=GB | UA=Chrome | ASN=6830
+  18. time=2026-08-15 08:43:19 | success=True | IP=10.0.0.13 | country=GB | UA=Chrome | ASN=5617
+  19. time=2026-08-16 21:53:25 | success=True | IP=192.168.1.14 | country=GB | UA=Edge | ASN=5617
+  20. time=2026-08-17 16:03:33 | success=True | IP=10.0.0.15 | country=GB | UA=Chrome | ASN=15169
+
+================================================================================
+USER: user_00002
+PROFILE TYPE: STANDARD
+
+TYPICAL CONTEXT:
+  Country:    US
+  IP:         192.168.1.13
+  ASN:        15169
+  ASN org:    Google
+  User-Agent: Safari
+  Hours:      (8, 17)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 11:28:26 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  02. time=2026-07-30 16:14:45 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  03. time=2026-07-31 15:43:58 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  04. time=2026-08-01 09:26:08 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  05. time=2026-08-02 17:21:53 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  06. time=2026-08-03 10:57:39 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  07. time=2026-08-04 09:09:25 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  08. time=2026-08-05 15:10:18 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  09. time=2026-08-06 11:55:23 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  10. time=2026-08-07 17:54:29 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  11. time=2026-08-08 10:23:28 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  12. time=2026-08-09 15:06:24 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  13. time=2026-08-10 09:27:25 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  14. time=2026-08-11 15:43:19 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  15. time=2026-08-12 09:37:47 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  16. time=2026-08-13 14:34:50 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  17. time=2026-08-14 13:21:28 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  18. time=2026-08-15 12:24:19 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  19. time=2026-08-16 14:40:16 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=15169
+  20. time=2026-08-17 08:53:19 | success=True | IP=192.168.1.13 | country=US | UA=Firefox | ASN=15169
+
+================================================================================
+USER: user_00003
+PROFILE TYPE: REMOTE
+
+TYPICAL CONTEXT:
+  Country:    US
+  IP:         10.0.0.11
+  ASN:        20940
+  ASN org:    Akamai
+  User-Agent: Chrome
+  Hours:      (7, 21)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 19:48:28 | success=True | IP=192.168.1.10 | country=US | UA=Chrome | ASN=15169
+  02. time=2026-07-30 12:06:16 | success=True | IP=10.0.0.11 | country=US | UA=Chrome | ASN=15169
+  03. time=2026-07-31 16:07:47 | success=True | IP=192.168.1.10 | country=US | UA=Chrome | ASN=15169
+  04. time=2026-08-01 21:34:56 | success=True | IP=192.168.1.15 | country=US | UA=Chrome | ASN=20940
+  05. time=2026-08-02 14:03:13 | success=True | IP=192.168.1.10 | country=US | UA=Chrome | ASN=15169
+  06. time=2026-08-03 10:24:49 | success=True | IP=10.0.0.15 | country=US | UA=Chrome | ASN=15169
+  07. time=2026-08-04 16:13:43 | success=True | IP=10.0.0.15 | country=US | UA=Chrome | ASN=5617
+  08. time=2026-08-05 18:23:53 | success=True | IP=10.0.0.11 | country=US | UA=Firefox | ASN=20940
+  09. time=2026-08-06 09:59:11 | success=True | IP=10.0.0.11 | country=FR | UA=Chrome | ASN=15169
+  10. time=2026-08-07 19:33:33 | success=True | IP=192.168.1.11 | country=FR | UA=Firefox | ASN=20940
+  11. time=2026-08-08 08:36:11 | success=True | IP=10.0.0.15 | country=FR | UA=Firefox | ASN=6830
+  12. time=2026-08-09 08:33:38 | success=True | IP=192.168.1.11 | country=FR | UA=Chrome | ASN=6830
+  13. time=2026-08-10 19:56:37 | success=True | IP=10.0.0.14 | country=US | UA=Safari | ASN=6830
+  14. time=2026-08-11 16:05:41 | success=True | IP=10.0.0.14 | country=FR | UA=Safari | ASN=5617
+  15. time=2026-08-12 19:04:45 | success=True | IP=10.0.0.13 | country=FR | UA=Safari | ASN=15169
+  16. time=2026-08-13 13:33:23 | success=True | IP=10.0.0.13 | country=US | UA=Safari | ASN=6830
+  17. time=2026-08-14 19:35:24 | success=True | IP=10.0.0.11 | country=FR | UA=Safari | ASN=20940
+  18. time=2026-08-15 08:38:37 | success=True | IP=10.0.0.15 | country=FR | UA=Firefox | ASN=5617
+  19. time=2026-08-16 21:38:59 | success=True | IP=192.168.1.13 | country=US | UA=Safari | ASN=20940
+  20. time=2026-08-17 21:19:48 | success=True | IP=10.0.0.10 | country=US | UA=Firefox | ASN=20940
+
+================================================================================
+USER: user_00004
+PROFILE TYPE: TRAVELER
+
+TYPICAL CONTEXT:
+  Country:    PL
+  IP:         10.0.0.13
+  ASN:        6830
+  ASN org:    UPC Polska
+  User-Agent: Chrome
+  Hours:      (6, 22)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 08:38:00 | success=True | IP=10.0.0.13 | country=FR | UA=Chrome | ASN=15169
+  02. time=2026-07-30 06:14:44 | success=True | IP=192.168.1.15 | country=CZ | UA=Chrome | ASN=6830
+  03. time=2026-07-31 14:06:02 | success=True | IP=192.168.1.13 | country=PL | UA=Safari | ASN=6830
+  04. time=2026-08-01 10:18:35 | success=True | IP=192.168.1.15 | country=PL | UA=Chrome | ASN=15169
+  05. time=2026-08-02 06:21:32 | success=True | IP=10.0.0.11 | country=DE | UA=Edge | ASN=15169
+  06. time=2026-08-03 18:27:28 | success=True | IP=10.0.0.15 | country=NL | UA=Safari | ASN=15169
+  07. time=2026-08-04 18:41:42 | success=True | IP=10.0.0.13 | country=GB | UA=Chrome | ASN=6830
+  08. time=2026-08-05 08:13:02 | success=True | IP=192.168.1.13 | country=CZ | UA=Safari | ASN=5617
+  09. time=2026-08-06 12:03:51 | success=True | IP=10.0.0.14 | country=US | UA=Firefox | ASN=6830
+  10. time=2026-08-07 11:55:54 | success=True | IP=192.168.1.11 | country=CZ | UA=Chrome | ASN=20940
+  11. time=2026-08-08 17:52:44 | success=True | IP=192.168.1.14 | country=NL | UA=Chrome | ASN=5617
+  12. time=2026-08-09 09:36:09 | success=True | IP=192.168.1.14 | country=PL | UA=Firefox | ASN=6830
+  13. time=2026-08-10 17:20:02 | success=True | IP=192.168.1.12 | country=FR | UA=Safari | ASN=5617
+  14. time=2026-08-11 18:19:39 | success=True | IP=192.168.1.10 | country=US | UA=Safari | ASN=15169
+  15. time=2026-08-12 21:25:06 | success=True | IP=192.168.1.14 | country=CZ | UA=Chrome | ASN=6830
+  16. time=2026-08-13 21:25:21 | success=True | IP=10.0.0.12 | country=NL | UA=Safari | ASN=6830
+  17. time=2026-08-14 14:27:16 | success=True | IP=192.168.1.11 | country=CZ | UA=Safari | ASN=6830
+  18. time=2026-08-15 14:07:22 | success=True | IP=10.0.0.11 | country=FR | UA=Chrome | ASN=15169
+  19. time=2026-08-16 16:31:47 | success=True | IP=192.168.1.10 | country=DE | UA=Edge | ASN=20940
+  20. time=2026-08-17 11:50:52 | success=True | IP=10.0.0.15 | country=US | UA=Chrome | ASN=20940
+
+================================================================================
+USER: user_00005
+PROFILE TYPE: TRAVELER
+
+TYPICAL CONTEXT:
+  Country:    PL
+  IP:         10.0.0.13
+  ASN:        5617
+  ASN org:    Orange Polska
+  User-Agent: Safari
+  Hours:      (6, 22)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 09:36:28 | success=True | IP=192.168.1.11 | country=PL | UA=Safari | ASN=15169
+  02. time=2026-07-30 10:08:51 | success=True | IP=192.168.1.11 | country=PL | UA=Safari | ASN=5617
+  03. time=2026-07-31 16:43:43 | success=True | IP=10.0.0.13 | country=PL | UA=Safari | ASN=15169
+  04. time=2026-08-01 13:02:38 | success=True | IP=10.0.0.14 | country=PL | UA=Safari | ASN=15169
+  05. time=2026-08-02 09:41:13 | success=True | IP=10.0.0.10 | country=GB | UA=Safari | ASN=6830
+  06. time=2026-08-03 14:42:28 | success=True | IP=192.168.1.14 | country=GB | UA=Safari | ASN=20940
+  07. time=2026-08-04 14:46:32 | success=True | IP=10.0.0.13 | country=US | UA=Safari | ASN=6830
+  08. time=2026-08-05 07:01:16 | success=True | IP=192.168.1.14 | country=PL | UA=Safari | ASN=6830
+  09. time=2026-08-06 14:34:41 | success=True | IP=10.0.0.14 | country=CZ | UA=Safari | ASN=15169
+  10. time=2026-08-07 20:38:32 | success=True | IP=10.0.0.12 | country=US | UA=Safari | ASN=6830
+  11. time=2026-08-08 07:33:10 | success=True | IP=10.0.0.12 | country=FR | UA=Safari | ASN=20940
+  12. time=2026-08-09 08:06:14 | success=True | IP=10.0.0.11 | country=CZ | UA=Safari | ASN=15169
+  13. time=2026-08-10 17:11:57 | success=True | IP=10.0.0.11 | country=GB | UA=Safari | ASN=15169
+  14. time=2026-08-11 15:28:12 | success=True | IP=10.0.0.15 | country=DE | UA=Safari | ASN=15169
+  15. time=2026-08-12 11:55:38 | success=True | IP=192.168.1.10 | country=NL | UA=Safari | ASN=5617
+  16. time=2026-08-13 11:21:06 | success=True | IP=192.168.1.14 | country=GB | UA=Safari | ASN=5617
+  17. time=2026-08-14 13:52:16 | success=True | IP=192.168.1.10 | country=FR | UA=Safari | ASN=6830
+  18. time=2026-08-15 17:05:56 | success=True | IP=10.0.0.11 | country=PL | UA=Chrome | ASN=20940
+  19. time=2026-08-16 16:38:10 | success=True | IP=192.168.1.11 | country=CZ | UA=Firefox | ASN=6830
+  20. time=2026-08-17 14:50:41 | success=True | IP=10.0.0.11 | country=DE | UA=Firefox | ASN=5617
+
+================================================================================
+USER: user_00006
+PROFILE TYPE: REMOTE
+
+TYPICAL CONTEXT:
+  Country:    FR
+  IP:         192.168.1.14
+  ASN:        20940
+  ASN org:    Akamai
+  User-Agent: Edge
+  Hours:      (7, 21)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 13:17:32 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=20940
+  02. time=2026-07-30 08:14:37 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=5617
+  03. time=2026-07-31 09:53:36 | success=True | IP=192.168.1.11 | country=FR | UA=Edge | ASN=20940
+  04. time=2026-08-01 15:52:05 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=20940
+  05. time=2026-08-02 21:29:55 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=20940
+  06. time=2026-08-03 19:32:13 | success=True | IP=192.168.1.11 | country=FR | UA=Edge | ASN=5617
+  07. time=2026-08-04 20:54:06 | success=True | IP=10.0.0.11 | country=FR | UA=Safari | ASN=5617
+  08. time=2026-08-05 12:11:17 | success=True | IP=10.0.0.15 | country=FR | UA=Safari | ASN=5617
+  09. time=2026-08-06 13:31:08 | success=True | IP=10.0.0.11 | country=FR | UA=Edge | ASN=5617
+  10. time=2026-08-07 20:07:05 | success=True | IP=10.0.0.10 | country=FR | UA=Edge | ASN=20940
+  11. time=2026-08-08 16:57:17 | success=True | IP=10.0.0.15 | country=FR | UA=Edge | ASN=20940
+  12. time=2026-08-09 11:13:37 | success=True | IP=10.0.0.10 | country=FR | UA=Chrome | ASN=20940
+  13. time=2026-08-10 19:30:39 | success=True | IP=192.168.1.12 | country=FR | UA=Chrome | ASN=20940
+  14. time=2026-08-11 12:39:05 | success=True | IP=10.0.0.10 | country=FR | UA=Safari | ASN=20940
+  15. time=2026-08-12 07:36:44 | success=True | IP=10.0.0.13 | country=FR | UA=Chrome | ASN=20940
+  16. time=2026-08-13 17:42:28 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=6830
+  17. time=2026-08-14 12:46:11 | success=True | IP=10.0.0.14 | country=FR | UA=Firefox | ASN=15169
+  18. time=2026-08-15 12:27:37 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=15169
+  19. time=2026-08-16 08:44:32 | success=True | IP=10.0.0.11 | country=FR | UA=Safari | ASN=15169
+  20. time=2026-08-17 17:02:53 | success=True | IP=10.0.0.14 | country=FR | UA=Safari | ASN=6830
+
+================================================================================
+USER: user_00007
+PROFILE TYPE: TRAVELER
+
+TYPICAL CONTEXT:
+  Country:    NL
+  IP:         10.0.0.13
+  ASN:        6830
+  ASN org:    UPC Polska
+  User-Agent: Safari
+  Hours:      (6, 22)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 19:57:09 | success=True | IP=10.0.0.10 | country=NL | UA=Safari | ASN=6830
+  02. time=2026-07-30 19:45:00 | success=True | IP=10.0.0.10 | country=NL | UA=Chrome | ASN=6830
+  03. time=2026-07-31 17:28:11 | success=True | IP=10.0.0.12 | country=GB | UA=Safari | ASN=15169
+  04. time=2026-08-01 19:28:58 | success=True | IP=192.168.1.15 | country=GB | UA=Chrome | ASN=15169
+  05. time=2026-08-02 14:53:30 | success=True | IP=10.0.0.11 | country=NL | UA=Firefox | ASN=15169
+  06. time=2026-08-03 11:46:59 | success=True | IP=10.0.0.14 | country=GB | UA=Firefox | ASN=6830
+  07. time=2026-08-04 17:12:01 | success=True | IP=192.168.1.12 | country=FR | UA=Safari | ASN=5617
+  08. time=2026-08-05 14:52:24 | success=True | IP=192.168.1.14 | country=FR | UA=Edge | ASN=20940
+  09. time=2026-08-06 09:23:42 | success=True | IP=192.168.1.13 | country=FR | UA=Chrome | ASN=6830
+  10. time=2026-08-07 09:04:52 | success=True | IP=192.168.1.13 | country=US | UA=Firefox | ASN=6830
+  11. time=2026-08-08 21:25:43 | success=True | IP=192.168.1.13 | country=NL | UA=Firefox | ASN=6830
+  12. time=2026-08-09 12:38:13 | success=True | IP=192.168.1.11 | country=CZ | UA=Firefox | ASN=15169
+  13. time=2026-08-10 18:00:47 | success=True | IP=10.0.0.11 | country=US | UA=Firefox | ASN=6830
+  14. time=2026-08-11 11:50:54 | success=True | IP=10.0.0.10 | country=PL | UA=Firefox | ASN=6830
+  15. time=2026-08-12 17:39:58 | success=False | IP=192.168.1.13 | country=CZ | UA=Edge | ASN=20940
+  16. time=2026-08-13 08:25:00 | success=True | IP=192.168.1.10 | country=FR | UA=Chrome | ASN=6830
+  17. time=2026-08-14 22:16:30 | success=True | IP=10.0.0.15 | country=NL | UA=Firefox | ASN=6830
+  18. time=2026-08-15 19:07:39 | success=True | IP=10.0.0.12 | country=NL | UA=Safari | ASN=6830
+  19. time=2026-08-16 09:36:59 | success=True | IP=192.168.1.10 | country=US | UA=Firefox | ASN=5617
+  20. time=2026-08-17 09:37:19 | success=True | IP=10.0.0.13 | country=FR | UA=Edge | ASN=20940
+
+================================================================================
+USER: user_00008
+PROFILE TYPE: STANDARD
+
+TYPICAL CONTEXT:
+  Country:    NL
+  IP:         192.168.1.10
+  ASN:        20940
+  ASN org:    Akamai
+  User-Agent: Firefox
+  Hours:      (8, 17)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 17:48:00 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  02. time=2026-07-30 13:26:49 | success=True | IP=192.168.1.10 | country=NL | UA=Firefox | ASN=20940
+  03. time=2026-07-31 16:57:55 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  04. time=2026-08-01 13:12:43 | success=True | IP=192.168.1.10 | country=NL | UA=Firefox | ASN=20940
+  05. time=2026-08-02 13:19:17 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  06. time=2026-08-03 10:19:11 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  07. time=2026-08-04 16:26:12 | success=True | IP=192.168.1.10 | country=NL | UA=Firefox | ASN=20940
+  08. time=2026-08-05 16:40:33 | success=True | IP=192.168.1.10 | country=FR | UA=Edge | ASN=20940
+  09. time=2026-08-06 09:51:43 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  10. time=2026-08-07 11:19:21 | success=True | IP=192.168.1.10 | country=FR | UA=Edge | ASN=5617
+  11. time=2026-08-08 17:02:56 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+  12. time=2026-08-09 16:47:00 | success=True | IP=192.168.1.10 | country=NL | UA=Edge | ASN=20940
+  13. time=2026-08-10 09:44:14 | success=True | IP=192.168.1.10 | country=NL | UA=Edge | ASN=5617
+  14. time=2026-08-11 15:46:08 | success=True | IP=192.168.1.10 | country=NL | UA=Firefox | ASN=20940
+  15. time=2026-08-12 16:07:30 | success=True | IP=192.168.1.10 | country=NL | UA=Edge | ASN=5617
+  16. time=2026-08-13 12:34:32 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=5617
+  17. time=2026-08-14 11:23:11 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=5617
+  18. time=2026-08-15 09:08:46 | success=True | IP=192.168.1.10 | country=FR | UA=Edge | ASN=5617
+  19. time=2026-08-16 14:39:09 | success=True | IP=192.168.1.10 | country=NL | UA=Firefox | ASN=20940
+  20. time=2026-08-17 10:15:08 | success=True | IP=192.168.1.10 | country=FR | UA=Firefox | ASN=20940
+
+================================================================================
+USER: user_00009
+PROFILE TYPE: REMOTE
+
+TYPICAL CONTEXT:
+  Country:    NL
+  IP:         10.0.0.10
+  ASN:        6830
+  ASN org:    UPC Polska
+  User-Agent: Safari
+  Hours:      (7, 21)
+
+LOGIN HISTORY:
+  01. time=2026-07-29 15:27:43 | success=True | IP=10.0.0.10 | country=NL | UA=Safari | ASN=6830
+  02. time=2026-07-30 16:52:35 | success=True | IP=10.0.0.14 | country=NL | UA=Safari | ASN=6830
+  03. time=2026-07-31 09:12:56 | success=True | IP=10.0.0.10 | country=NL | UA=Safari | ASN=20940
+  04. time=2026-08-01 20:22:12 | success=True | IP=10.0.0.14 | country=NL | UA=Chrome | ASN=6830
+  05. time=2026-08-02 07:20:54 | success=True | IP=10.0.0.10 | country=NL | UA=Chrome | ASN=5617
+  06. time=2026-08-03 11:42:57 | success=True | IP=10.0.0.11 | country=NL | UA=Chrome | ASN=20940
+  07. time=2026-08-04 10:26:46 | success=True | IP=192.168.1.12 | country=NL | UA=Chrome | ASN=6830
+  08. time=2026-08-05 14:51:47 | success=True | IP=10.0.0.15 | country=NL | UA=Safari | ASN=6830
+  09. time=2026-08-06 18:26:52 | success=True | IP=10.0.0.15 | country=NL | UA=Chrome | ASN=6830
+  10. time=2026-08-07 10:26:23 | success=True | IP=10.0.0.10 | country=NL | UA=Chrome | ASN=20940
+  11. time=2026-08-08 11:07:05 | success=True | IP=10.0.0.14 | country=NL | UA=Safari | ASN=15169
+  12. time=2026-08-09 20:00:29 | success=True | IP=10.0.0.11 | country=NL | UA=Chrome | ASN=15169
+  13. time=2026-08-10 09:13:46 | success=True | IP=192.168.1.15 | country=NL | UA=Chrome | ASN=5617
+  14. time=2026-08-11 19:15:38 | success=True | IP=192.168.1.15 | country=NL | UA=Chrome | ASN=15169
+  15. time=2026-08-12 08:35:18 | success=True | IP=192.168.1.12 | country=NL | UA=Chrome | ASN=20940
+  16. time=2026-08-13 08:25:44 | success=True | IP=10.0.0.14 | country=NL | UA=Chrome | ASN=15169
+  17. time=2026-08-14 08:10:40 | success=True | IP=10.0.0.10 | country=NL | UA=Safari | ASN=15169
+  18. time=2026-08-15 18:37:20 | success=True | IP=192.168.1.15 | country=NL | UA=Edge | ASN=15169
+  19. time=2026-08-16 12:43:30 | success=True | IP=10.0.0.13 | country=NL | UA=Chrome | ASN=6830
+  20. time=2026-08-17 14:17:20 | success=True | IP=192.168.1.15 | country=NL | UA=Safari | ASN=15169
+
