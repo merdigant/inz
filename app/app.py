@@ -1,5 +1,3 @@
-# app/app.py
-
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
@@ -90,9 +88,6 @@ def get_db():
         db.close()
 
 
-
-
-
 @app.post("/users", status_code=201)
 def register_user(payload: UserCreate, db: Session = Depends(get_db)):
     existing = db.query(User).filter(User.username == payload.username).first()
@@ -154,16 +149,6 @@ def calculate_risk(
     normalized_score = normalize(raw_score)
 
     return int(normalized_score)
-
-
-
-def risk_level(score: int) -> str:
-    if score >= 60:
-        return "HIGH"
-    if score >= 30:
-        return "MEDIUM"
-    return "LOW"
-
 
 @app.post("/auth/login")
 def login(payload: LoginRequest,request: Request,db: Session = Depends(get_db)):

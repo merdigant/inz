@@ -51,15 +51,7 @@ def measure_time(function, repetitions=REPETITIONS):
 # ============================================================
 
 def baseline_login(context):
-    """
-    Symulacja standardowego procesu logowania.
 
-    W wariancie bazowym wykonywana jest jedynie operacja
-    odpowiadająca podstawowemu uwierzytelnieniu.
-
-    Na obecnym etapie eksperymentu nie wykonujemy tutaj
-    rzeczywistego żądania HTTP.
-    """
 
     # Symulacja podstawowej weryfikacji danych logowania.
     #

@@ -2,10 +2,6 @@ from collections import Counter, defaultdict
 from statistics import mean, median
 
 
-# ============================================================
-# KONFIGURACJA
-# ============================================================
-
 SCENARIO_ORDER = [
     "NORMAL",
     "NEW_IP",
@@ -14,7 +10,6 @@ SCENARIO_ORDER = [
     "UNUSUAL_HOUR",
     "RISKY_ASN",
     "IMPOSSIBLE_TRAVEL",
-    "MULTI_ANOMALY",
     "BRUTE_FORCE",
     "ACCOUNT_TAKEOVER",
     "CHRONIC_RISK",
@@ -34,10 +29,6 @@ PROFILE_ORDER = [
 ]
 
 
-# ============================================================
-# POMOCNICZE
-# ============================================================
-
 def _scores(results):
     return [result.score for result in results]
 
@@ -49,12 +40,6 @@ def _decision_counts(results):
 
 
 def _percentile(values, percentile):
-    """
-    Oblicza percentyl bez dodatkowych zależności.
-
-    percentile:
-        wartość od 0 do 100.
-    """
 
     if not values:
         return None
@@ -80,9 +65,6 @@ def _percentile(values, percentile):
 
 
 def _score_statistics(results):
-    """
-    Zwraca podstawowe statystyki score.
-    """
 
     scores = _scores(results)
 
@@ -107,16 +89,7 @@ def _score_statistics(results):
         "max": max(scores),
     }
 
-
-# ============================================================
-# PODSTAWOWE PODSUMOWANIE
-# ============================================================
-
 def summarize_results(results):
-    """
-    Zwraca podstawowe informacje o eksperymencie.
-    """
-
     usernames = {
         result.username
         for result in results
@@ -145,15 +118,8 @@ def summarize_results(results):
         "profile_types": len(profiles),
     }
 
-
-# ============================================================
-# ANALIZA SCENARIUSZY
-# ============================================================
-
 def analyze_scenarios(results):
-    """
-    Analizuje rozkład score dla każdego scenariusza.
-    """
+
 
     grouped = defaultdict(list)
 
@@ -179,14 +145,7 @@ def analyze_scenarios(results):
     return analysis
 
 
-# ============================================================
-# ANALIZA POLITYK
-# ============================================================
-
 def analyze_policies(results):
-    """
-    Analizuje działanie poszczególnych polityk MFA.
-    """
 
     grouped = defaultdict(list)
 
@@ -219,16 +178,7 @@ def analyze_policies(results):
 
     return analysis
 
-
-# ============================================================
-# ANALIZA PROFILI
-# ============================================================
-
 def analyze_profiles(results):
-    """
-    Analizuje wpływ typu profilu użytkownika
-    na wynik eksperymentu.
-    """
 
     grouped = defaultdict(list)
 
@@ -261,20 +211,7 @@ def analyze_profiles(results):
 
     return analysis
 
-
-# ============================================================
-# MACIERZ SCENARIUSZ × POLITYKA
-# ============================================================
-
 def analyze_scenario_policy(results):
-    """
-    Tworzy analizę wyników w podziale:
-
-        scenariusz × polityka
-
-    Dzięki temu można sprawdzić, jak każda polityka
-    reaguje na każdy scenariusz.
-    """
 
     grouped = defaultdict(list)
 
@@ -324,21 +261,7 @@ def analyze_scenario_policy(results):
 
     return analysis
 
-
-# ============================================================
-# ANALIZA FALSE POSITIVE
-# ============================================================
-
 def analyze_false_positives(results):
-    """
-    Analizuje potencjalne false positive.
-
-    Za normalne zachowanie uznajemy scenariusz NORMAL.
-
-    False positive:
-        NORMAL -> MFA_REQUIRED
-        NORMAL -> BLOCK
-    """
 
     normal_results = [
         result
@@ -378,31 +301,12 @@ def analyze_false_positives(results):
         "by_decision": dict(by_decision),
     }
 
-
-# ============================================================
-# ANALIZA FALSE NEGATIVE
-# ============================================================
-
 def analyze_false_negatives(results):
-    """
-    Analizuje potencjalne false negative.
-
-    Scenariusze uznane za wysokiego ryzyka:
-
-        BRUTE_FORCE
-        ACCOUNT_TAKEOVER
-        IMPOSSIBLE_TRAVEL
-        MULTI_ANOMALY
-
-    False negative:
-        scenariusz wysokiego ryzyka -> ALLOW
-    """
 
     high_risk_scenarios = {
         "BRUTE_FORCE",
         "ACCOUNT_TAKEOVER",
-        "IMPOSSIBLE_TRAVEL",
-        "MULTI_ANOMALY",
+        "IMPOSSIBLE_TRAVEL"
     }
 
     high_risk_results = [
@@ -443,21 +347,7 @@ def analyze_false_negatives(results):
         "by_policy": dict(by_policy),
     }
 
-
-# ============================================================
-# SKUTECZNOŚĆ SCENARIUSZY
-# ============================================================
-
 def analyze_scenario_detection(results):
-    """
-    Określa, jak często poszczególne scenariusze
-    powodują reakcję systemu.
-
-    Reakcja:
-        ALLOW
-        MFA_REQUIRED
-        BLOCK
-    """
 
     grouped = defaultdict(list)
 
@@ -500,14 +390,7 @@ def analyze_scenario_detection(results):
     return analysis
 
 
-# ============================================================
-# ANALIZA CZASU
-# ============================================================
-
 def analyze_execution_time(results):
-    """
-    Analizuje czas wykonywania RiskEngine.
-    """
 
     times = [
         result.execution_time_ms
@@ -537,14 +420,7 @@ def analyze_execution_time(results):
     }
 
 
-# ============================================================
-# PEŁNA ANALIZA
-# ============================================================
-
 def analyze_results(results):
-    """
-    Wykonuje kompletną analizę wyników eksperymentu.
-    """
 
     return {
         "summary": summarize_results(results),
@@ -568,11 +444,6 @@ def analyze_results(results):
         ),
     }
 
-
-# ============================================================
-# FORMATOWANIE WYNIKÓW
-# ============================================================
-
 def _format_number(value, digits=2):
     if value is None:
         return "-"
@@ -581,13 +452,6 @@ def _format_number(value, digits=2):
 
 
 def print_analysis(data):
-    """
-    Wyświetla pełną analizę eksperymentu.
-
-    Funkcja może otrzymać:
-    - listę ExperimentResult,
-    - albo gotowy słownik zwrócony przez analyze_results().
-    """
 
     if isinstance(data, dict):
         analysis = data
@@ -605,10 +469,6 @@ def print_analysis(data):
     print(f"Liczba profili:   {summary['profiles']}")
     print(f"Liczba scenariuszy: {summary['scenarios']}")
     print(f"Liczba polityk:    {summary['policies']}")
-
-    # --------------------------------------------------------
-    # SCENARIUSZE
-    # --------------------------------------------------------
 
     print()
     print("=" * 70)
@@ -637,10 +497,6 @@ def print_analysis(data):
             f"{stats['max']:>7.0f}"
         )
 
-    # --------------------------------------------------------
-    # POLITYKI
-    # --------------------------------------------------------
-
     print()
     print("=" * 70)
     print("POLITYKI")
@@ -665,10 +521,6 @@ def print_analysis(data):
             f"  decyzje:      "
             f"{stats['decisions']}"
         )
-
-    # --------------------------------------------------------
-    # PROFILE
-    # --------------------------------------------------------
 
     print()
     print("=" * 70)
@@ -695,10 +547,6 @@ def print_analysis(data):
             f"{stats['decisions']}"
         )
 
-    # --------------------------------------------------------
-    # SCENARIUSZ × POLITYKA
-    # --------------------------------------------------------
-
     print()
     print("=" * 70)
     print("SCENARIUSZ × POLITYKA")
@@ -719,9 +567,6 @@ def print_analysis(data):
                 f" | decyzje={data['decisions']}"
             )
 
-    # --------------------------------------------------------
-    # DETEKCJA SCENARIUSZY
-    # --------------------------------------------------------
 
     print()
     print("=" * 70)
@@ -745,10 +590,6 @@ def print_analysis(data):
             f"{data['mfa_percent']:>9.1f}%"
             f"{data['block_percent']:>9.1f}%"
         )
-
-    # --------------------------------------------------------
-    # FALSE POSITIVE
-    # --------------------------------------------------------
 
     fp = analysis["false_positives"]
 
@@ -776,10 +617,6 @@ def print_analysis(data):
         f"Według polityki:    "
         f"{fp['by_policy']}"
     )
-
-    # --------------------------------------------------------
-    # FALSE NEGATIVE
-    # --------------------------------------------------------
 
     fn = analysis["false_negatives"]
 
@@ -812,10 +649,6 @@ def print_analysis(data):
         f"Według polityki:            "
         f"{fn['by_policy']}"
     )
-
-    # --------------------------------------------------------
-    # CZAS
-    # --------------------------------------------------------
 
     execution = analysis["execution_time"]
 
@@ -855,11 +688,6 @@ def print_analysis(data):
     )
 
     print()
-
-
-# ============================================================
-# GŁÓWNE API MODUŁU
-# ============================================================
 
 __all__ = [
     "analyze_results",

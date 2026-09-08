@@ -25,5 +25,6 @@ def make_context(history, **kwargs):
         user_agent=kwargs.get("user_agent"),
         country=kwargs.get("country"),
         asn=kwargs.get("asn"),
+        asn_org=kwargs.get("asn_org"),
         risk_history=kwargs.get("risk_history", []),
     )

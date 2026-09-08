@@ -112,16 +112,17 @@ class ImpossibleTravelRule(RiskRule):
 class RapidAttemptsRule(RiskRule):
     def evaluate(self, context: RiskContext) -> int:
         history = context.login_history
+
         if len(history) < 3:
             return 0
 
         t0 = history[0].timestamp
         t2 = history[2].timestamp
 
-        if t0 - t2 < timedelta(seconds=60):
+        if t2 - t0 < timedelta(seconds=60):
             return 30
-        return 0
 
+        return 0
 class PositiveLoginHistoryRule(RiskRule):
     def evaluate(self, context: RiskContext) -> int:
         successes = [

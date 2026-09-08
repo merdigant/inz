@@ -10,8 +10,18 @@ def test_new_country_rule_triggers():
 
 
 def test_risky_asn_rule_triggers():
-    history = [make_attempt(asn_org="Some Cloud Provider")]
-    context = make_context(history, asn=1234)
+    history = [
+        make_attempt(
+            asn_org="Some Cloud Provider"
+        )
+    ]
+
+    context = make_context(
+        history,
+        asn=1234,
+        asn_org="Some Cloud Provider",
+    )
+
     assert RiskyASNRule().evaluate(context) == 30
 
 

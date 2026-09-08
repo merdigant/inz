@@ -344,44 +344,6 @@ def generate_impossible_travel(profile: UserProfile) -> Scenario:
 
 
 # ============================================================
-# MULTI ANOMALY
-# ============================================================
-
-def generate_multi_anomaly(profile: UserProfile) -> Scenario:
-    """
-    Jednoczesne wystąpienie kilku anomalii:
-
-    - nowe IP,
-    - nowy kraj,
-    - nowe urządzenie,
-    - nietypowa godzina,
-    - ryzykowny ASN.
-    """
-
-    context = build_context(profile)
-
-    context.ip_address = get_new_ip(profile)
-    context.country = get_new_country(profile)
-    context.user_agent = get_new_user_agent(profile)
-
-    context.login_time = context.login_time.replace(
-        hour=2,
-        minute=0,
-        second=0,
-        microsecond=0,
-    )
-
-    context.asn = RISKY_ASN
-    context.asn_org = RISKY_ASN_ORG
-
-    return make_scenario(
-        profile,
-        "MULTI_ANOMALY",
-        context,
-    )
-
-
-# ============================================================
 # ACCOUNT TAKEOVER
 # ============================================================
 
@@ -642,7 +604,6 @@ SCENARIO_GENERATORS = {
     "UNUSUAL_HOUR": generate_unusual_hour,
     "RISKY_ASN": generate_risky_asn,
     "IMPOSSIBLE_TRAVEL": generate_impossible_travel,
-    "MULTI_ANOMALY": generate_multi_anomaly,
     "BRUTE_FORCE": generate_brute_force,
     "ACCOUNT_TAKEOVER": generate_account_takeover,
     "CHRONIC_RISK": generate_chronic_risk,
